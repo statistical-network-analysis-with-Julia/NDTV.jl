@@ -1,0 +1,17 @@
+name = "NDTV"
+uuid = "34567890-abcd-ef12-3456-7890123456ab"
+authors = ["Statistical Network Analysis with Julia"]
+version = "0.1.0"
+
+[deps]
+Network = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+NetworkDynamic = "d4e5f6a7-b8c9-0123-def4-567890123456"
+
+[compat]
+julia = "1.9"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
