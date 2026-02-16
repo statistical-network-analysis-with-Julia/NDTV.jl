@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Getting Started · NDTV.jl</title><meta name="title" content="Getting Started · NDTV.jl"/><meta property="og:title" content="Getting Started · NDTV.jl"/><meta property="twitter:title" content="Getting Started · NDTV.jl"/><meta name="description" content="Documentation for NDTV.jl."/><meta property="og:description" content="Documentation for NDTV.jl."/><meta property="twitter:description" content="Documentation for NDTV.jl."/><meta property="og:url" content="https://Statistical-network-analysis-with-Julia.github.io/NDTV.jl/getting_started.html"/><meta property="twitter:url" content="https://Statistical-network-analysis-with-Julia.github.io/NDTV.jl/getting_started.html"/><link rel="canonical" href="https://Statistical-network-analysis-with-Julia.github.io/NDTV.jl/getting_started.html"/><script data-outdated-warner src="assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="search_index.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="index.html"><img src="assets/logo.svg" alt="NDTV.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="index.html">NDTV.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="index.html">Home</a></li><li class="is-active"><a class="tocitem" href="getting_started.html">Getting Started</a><ul class="internal"><li><a class="tocitem" href="#Installation"><span>Installation</span></a></li><li><a class="tocitem" href="#Basic-Workflow"><span>Basic Workflow</span></a></li><li><a class="tocitem" href="#Step-1:-Create-a-Dynamic-Network"><span>Step 1: Create a Dynamic Network</span></a></li><li><a class="tocitem" href="#Step-2:-Compute-Animation-Layout"><span>Step 2: Compute Animation Layout</span></a></li><li><a class="tocitem" href="#Step-3:-Visualize-the-Network"><span>Step 3: Visualize the Network</span></a></li><li><a class="tocitem" href="#Step-4:-Export-the-Animation"><span>Step 4: Export the Animation</span></a></li><li><a class="tocitem" href="#Interpolated-Layout"><span>Interpolated Layout</span></a></li><li><a class="tocitem" href="#Complete-Example:-Epidemic-Visualization"><span>Complete Example: Epidemic Visualization</span></a></li><li><a class="tocitem" href="#Best-Practices"><span>Best Practices</span></a></li><li><a class="tocitem" href="#Next-Steps"><span>Next Steps</span></a></li></ul></li><li><span class="tocitem">User Guide</span><ul><li><a class="tocitem" href="guide/animation.html">Animation Layout</a></li><li><a class="tocitem" href="guide/layout.html">Layout Algorithms</a></li><li><a class="tocitem" href="guide/export.html">Export</a></li></ul></li><li><span class="tocitem">API Reference</span><ul><li><a class="tocitem" href="api/types.html">Types</a></li><li><a class="tocitem" href="api/layout.html">Layout</a></li><li><a class="tocitem" href="api/export.html">Export</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href="getting_started.html">Getting Started</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href="getting_started.html">Getting Started</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/Statistical-network-analysis-with-Julia/NDTV.jl/blob/main/docs/src/getting_started.md#" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Getting-Started"><a class="docs-heading-anchor" href="#Getting-Started">Getting Started</a><a id="Getting-Started-1"></a><a class="docs-heading-anchor-permalink" href="#Getting-Started" title="Permalink"></a></h1><p>This tutorial walks through common use cases for NDTV.jl, from basic animation to advanced visualization of dynamic networks.</p><h2 id="Installation"><a class="docs-heading-anchor" href="#Installation">Installation</a><a id="Installation-1"></a><a class="docs-heading-anchor-permalink" href="#Installation" title="Permalink"></a></h2><p>Install NDTV.jl from GitHub:</p><pre><code class="language-julia hljs">using Pkg
+Pkg.add(url=&quot;https://github.com/Statistical-network-analysis-with-Julia/NDTV.jl&quot;)</code></pre><p>NDTV.jl depends on NetworkDynamic.jl for dynamic network data structures. Install it as well:</p><pre><code class="language-julia hljs">Pkg.add(url=&quot;https://github.com/Statistical-network-analysis-with-Julia/NetworkDynamic.jl&quot;)</code></pre><h2 id="Basic-Workflow"><a class="docs-heading-anchor" href="#Basic-Workflow">Basic Workflow</a><a id="Basic-Workflow-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Workflow" title="Permalink"></a></h2><p>The typical NDTV.jl workflow consists of four steps:</p><ol><li><strong>Create a dynamic network</strong> – Define vertices and edges with activity spells</li><li><strong>Compute layouts</strong> – Position vertices at each time point using layout algorithms</li><li><strong>Visualize</strong> – Generate timelines, filmstrips, or animation frames</li><li><strong>Export</strong> – Save results as HTML, video, or GIF</li></ol><h2 id="Step-1:-Create-a-Dynamic-Network"><a class="docs-heading-anchor" href="#Step-1:-Create-a-Dynamic-Network">Step 1: Create a Dynamic Network</a><a id="Step-1:-Create-a-Dynamic-Network-1"></a><a class="docs-heading-anchor-permalink" href="#Step-1:-Create-a-Dynamic-Network" title="Permalink"></a></h2><p>Dynamic networks are created using NetworkDynamic.jl. Vertices and edges have activity spells that define when they are present:</p><pre><code class="language-julia hljs">using NetworkDynamic
+using NDTV
+
+# Create a dynamic network with 5 vertices observed from t=0 to t=100
+dnet = DynamicNetwork(5; observation_start=0.0, observation_end=100.0)
+
+# Activate all vertices for the full observation period
+for i in 1:5
+    activate!(dnet, 0.0, 100.0; vertex=i)
+end
+
+# Add edge activity spells
+# Edge (1,2) is active from t=0 to t=40
+activate!(dnet, 0.0, 40.0; edge=(1, 2))
+
+# Edge (2,3) is active from t=20 to t=70
+activate!(dnet, 20.0, 70.0; edge=(2, 3))
+
+# Edge (3,4) is active from t=40 to t=90
+activate!(dnet, 40.0, 90.0; edge=(3, 4))
+
+# Edge (4,5) is active from t=60 to t=100
+activate!(dnet, 60.0, 100.0; edge=(4, 5))
+
+# Edge (1,3) appears temporarily from t=10 to t=30
+activate!(dnet, 10.0, 30.0; edge=(1, 3))</code></pre><h3 id="Understanding-Activity-Spells"><a class="docs-heading-anchor" href="#Understanding-Activity-Spells">Understanding Activity Spells</a><a id="Understanding-Activity-Spells-1"></a><a class="docs-heading-anchor-permalink" href="#Understanding-Activity-Spells" title="Permalink"></a></h3><p>Each vertex and edge can have multiple activity spells – intervals during which they are active. A vertex or edge can appear, disappear, and reappear:</p><pre><code class="language-julia hljs"># Vertex 1 is active in two intervals
+activate!(dnet, 0.0, 50.0; vertex=1)
+activate!(dnet, 70.0, 100.0; vertex=1)
+
+# Edge (1,2) also has two spells
+activate!(dnet, 0.0, 30.0; edge=(1, 2))
+activate!(dnet, 60.0, 90.0; edge=(1, 2))</code></pre><h3 id="Network-Snapshots"><a class="docs-heading-anchor" href="#Network-Snapshots">Network Snapshots</a><a id="Network-Snapshots-1"></a><a class="docs-heading-anchor-permalink" href="#Network-Snapshots" title="Permalink"></a></h3><p>At any time point, you can extract the active subnetwork:</p><pre><code class="language-julia hljs"># Get the network at time t=25
+snapshot = network_extract(dnet, 25.0)
+println(&quot;Vertices at t=25: &quot;, nv(snapshot))
+println(&quot;Edges at t=25: &quot;, ne(snapshot))</code></pre><h2 id="Step-2:-Compute-Animation-Layout"><a class="docs-heading-anchor" href="#Step-2:-Compute-Animation-Layout">Step 2: Compute Animation Layout</a><a id="Step-2:-Compute-Animation-Layout-1"></a><a class="docs-heading-anchor-permalink" href="#Step-2:-Compute-Animation-Layout" title="Permalink"></a></h2><p>NDTV.jl computes vertex positions for each time point using force-directed or geometric layout algorithms:</p><pre><code class="language-julia hljs"># Compute animation with 50 frames using Fruchterman-Reingold layout
+layout = render_animation(dnet;
+    algorithm=FRLayout(),
+    n_frames=50,
+    interpolation=:linear
+)
+
+println(&quot;Number of frames: &quot;, length(layout))
+println(&quot;Time range: &quot;, layout.times[1], &quot; to &quot;, layout.times[end])
+println(&quot;Layout bounds: &quot;, layout.bounds)</code></pre><p>The result is a <a href="api/types.html#NDTV.DynamicLayout"><code>DynamicLayout</code></a> containing vertex positions at each frame:</p><pre><code class="language-julia hljs"># Access positions at frame 1
+positions_frame1 = layout[1]
+# Returns Dict{vertex_id =&gt; (x, y)}
+
+# Access the time for each frame
+layout.times  # Vector of time points</code></pre><h3 id="Anchored-Layouts"><a class="docs-heading-anchor" href="#Anchored-Layouts">Anchored Layouts</a><a id="Anchored-Layouts-1"></a><a class="docs-heading-anchor-permalink" href="#Anchored-Layouts" title="Permalink"></a></h3><p>By default, NDTV.jl uses <strong>anchored layouts</strong>: each frame&#39;s layout computation starts from the previous frame&#39;s positions. This produces smooth transitions:</p><pre><code class="language-julia hljs"># Compute layout sequence with anchoring (default)
+times = collect(0.0:10.0:100.0)
+layout = layout_sequence(dnet, times;
+    algorithm=FRLayout(),
+    anchor=true   # Use previous positions as starting point
+)
+
+# Without anchoring -- each frame is computed independently
+layout_unanchored = layout_sequence(dnet, times;
+    algorithm=FRLayout(),
+    anchor=false
+)</code></pre><p>With anchoring enabled:</p><ul><li>Persistent vertices maintain stable positions across frames</li><li>New vertices appear near their connected neighbors</li><li>Layout changes are gradual rather than abrupt</li></ul><h3 id="Choosing-a-Layout-Algorithm"><a class="docs-heading-anchor" href="#Choosing-a-Layout-Algorithm">Choosing a Layout Algorithm</a><a id="Choosing-a-Layout-Algorithm-1"></a><a class="docs-heading-anchor-permalink" href="#Choosing-a-Layout-Algorithm" title="Permalink"></a></h3><p>NDTV.jl provides four layout algorithms:</p><pre><code class="language-julia hljs"># Fruchterman-Reingold: Force-directed (best for most networks)
+fr = FRLayout(iterations=100, cooling=0.95, k=1.0)
+
+# Kamada-Kawai: Energy-based (good for small networks)
+kk = KKLayout(iterations=100, epsilon=1e-4)
+
+# Circle: Uniform circular placement
+circle = CircleLayout(radius=1.0, start_angle=0.0)
+
+# Random: Random uniform placement
+random = RandomLayout(xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0)</code></pre><table><tr><th style="text-align: right">Algorithm</th><th style="text-align: right">Best For</th><th style="text-align: right">Stability</th><th style="text-align: right">Speed</th></tr><tr><td style="text-align: right"><code>FRLayout</code></td><td style="text-align: right">General networks</td><td style="text-align: right">High (with anchoring)</td><td style="text-align: right">Medium</td></tr><tr><td style="text-align: right"><code>KKLayout</code></td><td style="text-align: right">Small networks (&lt;50 vertices)</td><td style="text-align: right">High</td><td style="text-align: right">Slow</td></tr><tr><td style="text-align: right"><code>CircleLayout</code></td><td style="text-align: right">Fixed-structure comparisons</td><td style="text-align: right">Perfect</td><td style="text-align: right">Fast</td></tr><tr><td style="text-align: right"><code>RandomLayout</code></td><td style="text-align: right">Initial exploration</td><td style="text-align: right">None</td><td style="text-align: right">Fast</td></tr></table><h2 id="Step-3:-Visualize-the-Network"><a class="docs-heading-anchor" href="#Step-3:-Visualize-the-Network">Step 3: Visualize the Network</a><a id="Step-3:-Visualize-the-Network-1"></a><a class="docs-heading-anchor-permalink" href="#Step-3:-Visualize-the-Network" title="Permalink"></a></h2><h3 id="Timeline-Plot"><a class="docs-heading-anchor" href="#Timeline-Plot">Timeline Plot</a><a id="Timeline-Plot-1"></a><a class="docs-heading-anchor-permalink" href="#Timeline-Plot" title="Permalink"></a></h3><p>The simplest visualization is an ASCII timeline showing when vertices and edges are active:</p><pre><code class="language-julia hljs">timeline_plot(dnet)</code></pre><p>This produces output like:</p><pre><code class="language-text hljs">Timeline: 0.0 to 100.0
+============================================================
+
+Vertices:
+V1: |────────────────────────────────────────────────────────────|
+V2: |────────────────────────────────────────────────────────────|
+V3: |────────────────────────────────────────────────────────────|
+V4: |────────────────────────────────────────────────────────────|
+V5: |────────────────────────────────────────────────────────────|
+
+Edges:
+1→2: |════════════════════════                                    |
+2→3: |            ════════════════════════════════                |
+3→4: |                        ════════════════════════════════    |
+4→5: |                                    ════════════════════════|</code></pre><p>You can control the display width:</p><pre><code class="language-julia hljs">timeline_plot(dnet; width=80)</code></pre><h3 id="Proximity-Timeline"><a class="docs-heading-anchor" href="#Proximity-Timeline">Proximity Timeline</a><a id="Proximity-Timeline-1"></a><a class="docs-heading-anchor-permalink" href="#Proximity-Timeline" title="Permalink"></a></h3><p>View activity from a single vertex&#39;s perspective:</p><pre><code class="language-julia hljs"># Show all edges involving vertex 2
+proximity_timeline(dnet, 2)</code></pre><p>Output:</p><pre><code class="language-text hljs">Proximity timeline for vertex 2
+============================================================
+→ V1: |════════════════════════                                    |
+→ V3: |            ════════════════════════════════                |</code></pre><h3 id="Filmstrip"><a class="docs-heading-anchor" href="#Filmstrip">Filmstrip</a><a id="Filmstrip-1"></a><a class="docs-heading-anchor-permalink" href="#Filmstrip" title="Permalink"></a></h3><p>Generate data for multiple snapshots side-by-side:</p><pre><code class="language-julia hljs"># Get network snapshots at 5 time points
+times = [0.0, 25.0, 50.0, 75.0, 100.0]
+frames = filmstrip(dnet, times; algorithm=FRLayout())
+
+for frame in frames
+    println(&quot;t=$(frame.time): $(frame.n_vertices) vertices, $(frame.n_edges) edges&quot;)
+end</code></pre><p>You can also use <code>slice_layout</code> for evenly-spaced slices over an interval:</p><pre><code class="language-julia hljs">frames = slice_layout(dnet, 0.0, 100.0; n_slices=5, algorithm=FRLayout())</code></pre><h3 id="Transmission-Timeline"><a class="docs-heading-anchor" href="#Transmission-Timeline">Transmission Timeline</a><a id="Transmission-Timeline-1"></a><a class="docs-heading-anchor-permalink" href="#Transmission-Timeline" title="Permalink"></a></h3><p>For visualizing diffusion or contagion events:</p><pre><code class="language-julia hljs"># Define transmission events: (source, target, time)
+transmissions = [
+    (1, 2, 5.0),    # Vertex 1 transmits to 2 at t=5
+    (2, 3, 15.0),   # Vertex 2 transmits to 3 at t=15
+    (2, 4, 20.0),   # Vertex 2 transmits to 4 at t=20
+    (3, 5, 30.0),   # Vertex 3 transmits to 5 at t=30
+]
+
+transmissionTimeline(dnet, transmissions)</code></pre><p>Output:</p><pre><code class="language-text hljs">Transmission Timeline
+============================================================
+1→2: |  *                                                        | t=5.0
+2→3: |        *                                                  | t=15.0
+2→4: |           *                                               | t=20.0
+3→5: |                 *                                         | t=30.0</code></pre><h2 id="Step-4:-Export-the-Animation"><a class="docs-heading-anchor" href="#Step-4:-Export-the-Animation">Step 4: Export the Animation</a><a id="Step-4:-Export-the-Animation-1"></a><a class="docs-heading-anchor-permalink" href="#Step-4:-Export-the-Animation" title="Permalink"></a></h2><h3 id="HTML-Export"><a class="docs-heading-anchor" href="#HTML-Export">HTML Export</a><a id="HTML-Export-1"></a><a class="docs-heading-anchor-permalink" href="#HTML-Export" title="Permalink"></a></h3><p>The simplest export format creates a self-contained HTML file:</p><pre><code class="language-julia hljs">layout = render_animation(dnet; n_frames=100)
+
+export_html(layout, &quot;my_animation.html&quot;;
+    config=HTMLConfig(width=800, height=600, controls=true)
+)</code></pre><h3 id="Video-Export"><a class="docs-heading-anchor" href="#Video-Export">Video Export</a><a id="Video-Export-1"></a><a class="docs-heading-anchor-permalink" href="#Video-Export" title="Permalink"></a></h3><p>Video export requires FFmpeg to be installed on your system:</p><pre><code class="language-julia hljs">export_movie(layout, &quot;my_animation.mp4&quot;;
+    config=VideoConfig(fps=30, width=800, height=600, codec=&quot;h264&quot;)
+)</code></pre><h3 id="GIF-Export"><a class="docs-heading-anchor" href="#GIF-Export">GIF Export</a><a id="GIF-Export-1"></a><a class="docs-heading-anchor-permalink" href="#GIF-Export" title="Permalink"></a></h3><p>GIF export requires ImageMagick:</p><pre><code class="language-julia hljs">export_gif(layout, &quot;my_animation.gif&quot;;
+    config=GIFConfig(fps=10, width=400, height=400, loop=0)
+)</code></pre><h2 id="Interpolated-Layout"><a class="docs-heading-anchor" href="#Interpolated-Layout">Interpolated Layout</a><a id="Interpolated-Layout-1"></a><a class="docs-heading-anchor-permalink" href="#Interpolated-Layout" title="Permalink"></a></h2><p>For smoother animation between computed frames, use interpolated layouts:</p><pre><code class="language-julia hljs"># Compute base layout
+base = layout_sequence(dnet, collect(0.0:20.0:100.0);
+    algorithm=FRLayout()
+)
+
+# Create interpolated layout with linear interpolation
+interp_linear = InterpolatedLayout(base; interpolation=:linear)
+
+# Or with ease (smooth acceleration/deceleration)
+interp_ease = InterpolatedLayout(base; interpolation=:ease)
+
+# Query any vertex position at any time
+pos = get_position(interp_ease, 1, 35.0)
+println(&quot;Vertex 1 at t=35: x=$(pos[1]), y=$(pos[2])&quot;)</code></pre><p>Interpolation modes:</p><table><tr><th style="text-align: right">Mode</th><th style="text-align: right">Formula</th><th style="text-align: right">Effect</th></tr><tr><td style="text-align: right"><code>:linear</code></td><td style="text-align: right"><span>$p(t) = p_1 + \alpha(p_2 - p_1)$</span></td><td style="text-align: right">Constant velocity</td></tr><tr><td style="text-align: right"><code>:ease</code></td><td style="text-align: right">Cubic ease-in-out</td><td style="text-align: right">Smooth acceleration and deceleration</td></tr></table><h2 id="Complete-Example:-Epidemic-Visualization"><a class="docs-heading-anchor" href="#Complete-Example:-Epidemic-Visualization">Complete Example: Epidemic Visualization</a><a id="Complete-Example:-Epidemic-Visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Complete-Example:-Epidemic-Visualization" title="Permalink"></a></h2><p>Here is a complete example combining multiple NDTV.jl features to visualize disease transmission through a contact network:</p><pre><code class="language-julia hljs">using NetworkDynamic
+using NDTV
+
+# Create a contact network with 10 individuals
+dnet = DynamicNetwork(10; observation_start=0.0, observation_end=50.0)
+
+# Activate all individuals
+for i in 1:10
+    activate!(dnet, 0.0, 50.0; vertex=i)
+end
+
+# Define contact patterns (edges)
+contacts = [
+    (1, 2, 0.0, 50.0),   # Household contacts
+    (1, 3, 0.0, 50.0),
+    (2, 4, 5.0, 40.0),   # Workplace contacts
+    (3, 5, 5.0, 40.0),
+    (4, 6, 10.0, 35.0),
+    (5, 7, 10.0, 35.0),
+    (6, 8, 15.0, 30.0),
+    (7, 9, 15.0, 45.0),
+    (8, 10, 20.0, 50.0),
+]
+
+for (i, j, t_start, t_end) in contacts
+    activate!(dnet, t_start, t_end; edge=(i, j))
+end
+
+# Show the full timeline
+println(&quot;=== Contact Timeline ===&quot;)
+timeline_plot(dnet)
+
+# Define transmission events
+transmissions = [
+    (1, 2, 3.0),    # Index case infects household member
+    (1, 3, 5.0),
+    (2, 4, 12.0),   # Workplace transmission
+    (3, 5, 14.0),
+    (4, 6, 22.0),   # Second wave
+    (5, 7, 25.0),
+]
+
+# Show transmission timeline
+println(&quot;\n=== Transmission Events ===&quot;)
+transmissionTimeline(dnet, transmissions)
+
+# Show proximity timeline for the index case
+println(&quot;\n=== Index Case (Vertex 1) Contacts ===&quot;)
+proximity_timeline(dnet, 1)
+
+# Compute animation layout
+layout = render_animation(dnet; n_frames=100, algorithm=FRLayout())
+
+# Generate filmstrip at key time points
+frames = filmstrip(dnet, [0.0, 10.0, 20.0, 30.0, 40.0, 50.0])
+println(&quot;\n=== Network Snapshots ===&quot;)
+for f in frames
+    println(&quot;t=$(f.time): $(f.n_vertices) vertices, $(f.n_edges) edges&quot;)
+end
+
+# Export animation
+export_html(layout, &quot;epidemic_animation.html&quot;)</code></pre><h2 id="Best-Practices"><a class="docs-heading-anchor" href="#Best-Practices">Best Practices</a><a id="Best-Practices-1"></a><a class="docs-heading-anchor-permalink" href="#Best-Practices" title="Permalink"></a></h2><ol><li><strong>Start with timeline plots</strong>: Use <code>timeline_plot</code> to understand your data before computing layouts</li><li><strong>Use anchored layouts</strong>: Always keep <code>anchor=true</code> (default) for smooth animation transitions</li><li><strong>Choose frames wisely</strong>: Start with 50 frames and increase only if transitions look choppy</li><li><strong>Seed for reproducibility</strong>: Use <code>Random.seed!()</code> before layout computation for consistent results</li><li><strong>Match FPS to frames</strong>: Total duration = n_frames / fps – aim for 5-15 second animations</li><li><strong>Export to HTML first</strong>: HTML export requires no dependencies and allows interactive exploration</li></ol><h2 id="Next-Steps"><a class="docs-heading-anchor" href="#Next-Steps">Next Steps</a><a id="Next-Steps-1"></a><a class="docs-heading-anchor-permalink" href="#Next-Steps" title="Permalink"></a></h2><ul><li>Learn about <a href="guide/animation.html#Animation-Layout">Animation Layout</a> algorithms and configuration</li><li>Explore <a href="guide/layout.html#Layout-Algorithms">Layout Algorithms</a> in detail</li><li>Read about <a href="guide/export.html">Export</a> options and formats</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="index.html">« Home</a><a class="docs-footer-nextpage" href="guide/animation.html">Animation Layout »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Wednesday 11 February 2026 21:01">Wednesday 11 February 2026</span>. Using Julia version 1.12.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

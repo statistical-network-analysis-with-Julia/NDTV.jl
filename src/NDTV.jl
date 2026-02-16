@@ -29,8 +29,9 @@ export filmstrip, slice_layout
 
 # Layout algorithms
 export DynamicLayout, InterpolatedLayout
-export compute_slice_layout, layout_sequence
+export compute_slice_layout, layout_sequence, compute_layout
 export FRLayout, KKLayout, CircleLayout, RandomLayout
+export get_position
 
 # Export formats
 export ExportConfig, VideoConfig, GIFConfig, HTMLConfig
@@ -574,8 +575,25 @@ end
 # Export Functions
 # =============================================================================
 
+"""
+    ExportConfig
+
+Abstract base type for all export configuration types.
+Subtypes: [`VideoConfig`](@ref), [`GIFConfig`](@ref), [`HTMLConfig`](@ref).
+"""
 abstract type ExportConfig end
 
+"""
+    VideoConfig(; fps=30, width=800, height=600, codec="h264")
+
+Configuration for video (MP4) export. Requires FFmpeg.
+
+# Fields
+- `fps::Int`: Frames per second
+- `width::Int`: Video width in pixels
+- `height::Int`: Video height in pixels
+- `codec::String`: Video codec (e.g., "h264", "h265", "vp9")
+"""
 struct VideoConfig <: ExportConfig
     fps::Int
     width::Int
@@ -586,6 +604,17 @@ struct VideoConfig <: ExportConfig
         new(fps, width, height, codec)
 end
 
+"""
+    GIFConfig(; fps=10, width=400, height=400, loop=0)
+
+Configuration for GIF export. Requires ImageMagick.
+
+# Fields
+- `fps::Int`: Frames per second
+- `width::Int`: GIF width in pixels
+- `height::Int`: GIF height in pixels
+- `loop::Int`: Loop count (0 = infinite)
+"""
 struct GIFConfig <: ExportConfig
     fps::Int
     width::Int
@@ -596,6 +625,16 @@ struct GIFConfig <: ExportConfig
         new(fps, width, height, loop)
 end
 
+"""
+    HTMLConfig(; width=800, height=600, controls=true)
+
+Configuration for HTML export. No external dependencies required.
+
+# Fields
+- `width::Int`: Canvas width in pixels
+- `height::Int`: Canvas height in pixels
+- `controls::Bool`: Show playback controls
+"""
 struct HTMLConfig <: ExportConfig
     width::Int
     height::Int
@@ -605,18 +644,40 @@ struct HTMLConfig <: ExportConfig
         new(width, height, controls)
 end
 
+"""
+    export_movie(layout::DynamicLayout, filepath::String; config=VideoConfig())
+
+Export a dynamic network animation as a video file. Requires FFmpeg.
+
+Returns a named tuple with `filepath`, `n_frames`, and `fps`.
+"""
 function export_movie(layout::DynamicLayout, filepath::String;
                       config::VideoConfig=VideoConfig())
     @warn "export_movie: Video export requires FFmpeg. Layout data prepared with $(length(layout)) frames."
     return (filepath=filepath, n_frames=length(layout), fps=config.fps)
 end
 
+"""
+    export_gif(layout::DynamicLayout, filepath::String; config=GIFConfig())
+
+Export a dynamic network animation as an animated GIF. Requires ImageMagick.
+
+Returns a named tuple with `filepath`, `n_frames`, and `fps`.
+"""
 function export_gif(layout::DynamicLayout, filepath::String;
                     config::GIFConfig=GIFConfig())
     @warn "export_gif: GIF export requires ImageMagick. Layout data prepared with $(length(layout)) frames."
     return (filepath=filepath, n_frames=length(layout), fps=config.fps)
 end
 
+"""
+    export_html(layout::DynamicLayout, filepath::String; config=HTMLConfig())
+
+Export a dynamic network animation as a self-contained HTML file.
+No external dependencies required to view.
+
+Returns a named tuple with `filepath` and `n_frames`.
+"""
 function export_html(layout::DynamicLayout{T}, filepath::String;
                      config::HTMLConfig=HTMLConfig()) where T
     html = """

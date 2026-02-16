@@ -1,0 +1,13 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+NDTV = "34567890-abcd-ef12-3456-7890123456ab"
+Network = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+NetworkDynamic = "d4e5f6a7-b8c9-0123-def4-567890123456"
+
+[sources]
+NDTV = {path = ".."}
+Network = {path = "../../Network"}
+NetworkDynamic = {path = "../../NetworkDynamic"}
+
+[compat]
+Documenter = "1"
