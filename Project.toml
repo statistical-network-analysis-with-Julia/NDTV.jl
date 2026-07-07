@@ -1,5 +1,5 @@
 name = "NDTV"
-uuid = "34567890-abcd-ef12-3456-7890123456ab"
+uuid = "d08b9634-086a-4eae-932f-e15cd61d6088"
 authors = ["Statistical Network Analysis with Julia"]
 version = "0.1.0"
 
@@ -7,18 +7,19 @@ version = "0.1.0"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 Graphs = "86223c79-3864-5bf0-83f7-82e725a168b6"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
-Network = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-NetworkDynamic = "d4e5f6a7-b8c9-0123-def4-567890123456"
+Network = "027a387e-e55f-4537-a155-5037e5a23bdb"
+NetworkDynamic = "2ec8e4a1-edb9-4657-8cef-4d333c164b0b"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
-Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [sources]
 Network = {path = "../Network.jl"}
 NetworkDynamic = {path = "../NetworkDynamic.jl"}
 
 [compat]
-julia = "1.9"
+julia = "1.12"
 Graphs = "1.9"
+Network = "0.1"
+NetworkDynamic = "0.1"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

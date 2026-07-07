@@ -5,7 +5,7 @@
 [![Build Status](https://github.com/statistical-network-analysis-with-Julia/NDTV.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/statistical-network-analysis-with-Julia/NDTV.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://statistical-network-analysis-with-Julia.github.io/NDTV.jl/stable/)
 [![Documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://statistical-network-analysis-with-Julia.github.io/NDTV.jl/dev/)
-[![Julia](https://img.shields.io/badge/Julia-1.9+-purple.svg)](https://julialang.org/)
+[![Julia](https://img.shields.io/badge/Julia-1.12+-purple.svg)](https://julialang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <p align="center">
@@ -86,7 +86,7 @@ CircleLayout(; radius=1.0, start_angle=0.0)
 RandomLayout(; xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0)
 
 # Kamada-Kawai
-KKLayout(; iterations=100, epsilon=1e-4)
+KKLayout()   # classical MDS on geodesic distances (deterministic)
 ```
 
 ### Single Snapshot Layout

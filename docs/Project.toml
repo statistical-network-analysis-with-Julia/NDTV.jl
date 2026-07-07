@@ -1,8 +1,8 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-NDTV = "34567890-abcd-ef12-3456-7890123456ab"
-Network = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
-NetworkDynamic = "d4e5f6a7-b8c9-0123-def4-567890123456"
+NDTV = "d08b9634-086a-4eae-932f-e15cd61d6088"
+Network = "027a387e-e55f-4537-a155-5037e5a23bdb"
+NetworkDynamic = "2ec8e4a1-edb9-4657-8cef-4d333c164b0b"
 
 [sources]
 NDTV = {path = ".."}
