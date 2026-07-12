@@ -26,7 +26,7 @@ export export_movie, export_gif, export_html, export_frames
 
 # Timeline visualization
 export timeline_plot, proximity_timeline
-export transmissionTimeline, timeline_data
+export transmission_timeline, transmissionTimeline, timeline_data
 
 # Filmstrip
 export filmstrip, slice_layout
@@ -608,13 +608,16 @@ function proximity_timeline(dnet::DynamicNetwork{T, Time}, vertex::T;
 end
 
 """
-    transmissionTimeline(dnet::DynamicNetwork, transmissions; width=60, io=stdout)
+    transmission_timeline(dnet::DynamicNetwork, transmissions; width=60, io=stdout)
 
 ASCII timeline marking transmission events `(from, to, time)`.
+
+Also available under the R-style alias `transmissionTimeline` (matching
+`ndtv::transmissionTimeline`).
 """
-function transmissionTimeline(dnet::DynamicNetwork{T, Time},
-                              transmissions::Vector{Tuple{T, T, Time}};
-                              width::Int=60, io::IO=stdout) where {T, Time}
+function transmission_timeline(dnet::DynamicNetwork{T, Time},
+                               transmissions::Vector{Tuple{T, T, Time}};
+                               width::Int=60, io::IO=stdout) where {T, Time}
     start_time, end_time = dnet.observation_period
 
     println(io, "Transmission Timeline")
@@ -629,6 +632,13 @@ function transmissionTimeline(dnet::DynamicNetwork{T, Time},
 
     return nothing
 end
+
+"""
+    transmissionTimeline
+
+R-style alias for [`transmission_timeline`](@ref).
+"""
+const transmissionTimeline = transmission_timeline
 
 # =============================================================================
 # Filmstrip Visualization

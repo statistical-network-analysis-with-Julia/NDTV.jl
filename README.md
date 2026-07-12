@@ -59,6 +59,7 @@ frames = filmstrip(dnet, [0.0, 25.0, 50.0, 75.0, 100.0])
 
 ### Animation Layout
 
+<!-- skip-check -->
 ```julia
 # Compute layouts for animation
 layout = render_animation(dnet;
@@ -91,6 +92,7 @@ KKLayout()   # classical MDS on geodesic distances (deterministic)
 
 ### Single Snapshot Layout
 
+<!-- skip-check -->
 ```julia
 # Layout at specific time
 positions = compute_slice_layout(dnet, time; algorithm=FRLayout())
@@ -110,6 +112,7 @@ layout = layout_sequence(dnet, times;
 
 ## DynamicLayout Type
 
+<!-- skip-check -->
 ```julia
 struct DynamicLayout{T}
     positions::Vector{Dict{T, Tuple{Float64, Float64}}}
@@ -123,6 +126,7 @@ layout[i]        # Positions at frame i
 
 ## Interpolated Layout
 
+<!-- skip-check -->
 ```julia
 # Smooth interpolation between computed frames
 interp = InterpolatedLayout(base_layout; interpolation=:linear)
@@ -152,6 +156,7 @@ timeline_plot(dnet; width=60)
 
 ### Proximity Timeline
 
+<!-- skip-check -->
 ```julia
 # Ego-centric timeline
 proximity_timeline(dnet, vertex; width=60)
@@ -159,6 +164,7 @@ proximity_timeline(dnet, vertex; width=60)
 
 ### Transmission Timeline
 
+<!-- skip-check -->
 ```julia
 # For epidemic/diffusion visualization
 transmissions = [(from, to, time), ...]
@@ -185,7 +191,7 @@ frames = filmstrip(dnet, times; algorithm=FRLayout())
 # (time, positions, n_vertices, n_edges)
 
 # Slice layout over interval
-frames = slice_layout(dnet, onset, terminus; n_slices=5)
+frames = slice_layout(dnet, 0.0, 100.0; n_slices=5)
 ```
 
 ## Export

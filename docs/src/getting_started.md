@@ -31,6 +31,7 @@ The typical NDTV.jl workflow consists of four steps:
 Dynamic networks are created using NetworkDynamic.jl. Vertices and edges have activity spells that define when they are present:
 
 ```julia
+using Network   # for nv, ne on extracted snapshots
 using NetworkDynamic
 using NDTV
 
@@ -144,8 +145,8 @@ NDTV.jl provides four layout algorithms:
 # Fruchterman-Reingold: Force-directed (best for most networks)
 fr = FRLayout(iterations=100, cooling=0.95, k=1.0)
 
-# Kamada-Kawai: Energy-based (good for small networks)
-kk = KKLayout(iterations=100, epsilon=1e-4)
+# Kamada-Kawai: classical MDS on geodesic distances (deterministic, no parameters)
+kk = KKLayout()
 
 # Circle: Uniform circular placement
 circle = CircleLayout(radius=1.0, start_angle=0.0)

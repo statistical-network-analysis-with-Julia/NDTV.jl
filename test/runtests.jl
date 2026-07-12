@@ -174,6 +174,11 @@ end
         out = String(take!(io))
         @test occursin("1→2", out)
 
+        # snake_case primary name with R-style camelCase alias
+        @test transmissionTimeline === transmission_timeline
+        transmission_timeline(dnet, [(1, 2, 3.0)]; width=40, io=io)
+        @test occursin("1→2", String(take!(io)))
+
         td = timeline_data(dnet)
         @test length(td.vertices) == 4
         @test length(td.edges) == 3

@@ -40,6 +40,17 @@ where $d$ is the distance between two vertices and $k = \sqrt{\text{area} / n}$ 
 ### Usage
 
 ```julia
+using NetworkDynamic, NDTV
+
+# An example dynamic network
+dnet = DynamicNetwork(10; observation_start=0.0, observation_end=100.0)
+for i in 1:10
+    activate!(dnet, 0.0, 100.0; vertex=i)
+end
+for (i, j) in [(1,2), (2,3), (3,4), (4,5), (5,1), (2,6), (6,7)]
+    activate!(dnet, 0.0, 100.0; edge=(i, j))
+end
+
 # Default parameters
 layout = compute_slice_layout(dnet, 50.0; algorithm=FRLayout())
 
@@ -138,20 +149,17 @@ where:
 ### Usage
 
 ```julia
-kk = KKLayout(
-    iterations=100,
-    epsilon=1e-4
-)
+kk = KKLayout()
 
 layout = compute_slice_layout(dnet, 50.0; algorithm=kk)
 ```
 
 ### Parameters
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `iterations` | `Int` | `100` | Maximum number of optimization steps |
-| `epsilon` | `Float64` | `1e-4` | Convergence threshold |
+`KKLayout` takes no parameters: the implementation solves the layout
+directly via classical multidimensional scaling on the geodesic distance
+matrix, so it is deterministic and needs no iteration or convergence
+settings.
 
 ### When to Use KK
 
@@ -164,7 +172,7 @@ KK produces high-quality layouts that respect graph distances, but it is more ex
 
 ```julia
 # Small network with clear structure
-kk = KKLayout(iterations=200, epsilon=1e-5)
+kk = KKLayout()
 layout = render_animation(dnet; algorithm=kk, n_frames=50)
 ```
 
@@ -364,7 +372,7 @@ You can use `compute_layout` directly on a static `Network`:
 using Network
 
 # Create a static network
-net = Network(5; directed=false)
+net = network(5; directed=false)
 add_edge!(net, 1, 2)
 add_edge!(net, 2, 3)
 add_edge!(net, 3, 4)
