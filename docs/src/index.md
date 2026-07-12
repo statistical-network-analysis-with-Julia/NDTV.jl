@@ -58,7 +58,9 @@ NDTV.jl is designed for:
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/Statistical-network-analysis-with-Julia/NDTV.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/Network.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NDTV.jl")
 ```
 
 Or for development:
@@ -104,7 +106,7 @@ export_html(layout, "network_animation.html")
 | Animation | [`render_animation`](@ref) | Smooth layout transitions across time |
 | Timeline | [`timeline_plot`](@ref) | ASCII activity timeline |
 | Proximity | [`proximity_timeline`](@ref) | Ego-centric activity view |
-| Transmission | [`transmissionTimeline`](@ref) | Diffusion event visualization |
+| Transmission | [`transmission_timeline`](@ref) | Diffusion event visualization |
 | Filmstrip | [`filmstrip`](@ref) | Multiple snapshots at specified times |
 | Single snapshot | [`compute_slice_layout`](@ref) | Layout at a single time point |
 

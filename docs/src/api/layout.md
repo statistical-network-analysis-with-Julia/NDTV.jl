@@ -23,7 +23,7 @@ get_position
 ```@docs
 timeline_plot
 proximity_timeline
-transmissionTimeline
+transmission_timeline
 timeline_data
 ```
 

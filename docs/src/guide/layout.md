@@ -301,7 +301,7 @@ times = collect(10.0:10.0:100.0)
 positions = [first_pos]
 for t in times
     snapshot = network_extract(dnet, t)
-    pos = compute_layout_anchored(snapshot, FRLayout(), positions[end])
+    pos = NDTV.compute_layout_anchored(snapshot, FRLayout(), positions[end])
     push!(positions, pos)
 end
 ```

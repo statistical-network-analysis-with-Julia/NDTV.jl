@@ -291,7 +291,7 @@ This is useful for understanding a vertex's local network dynamics -- when its c
 
 ### Transmission Timeline
 
-[`transmissionTimeline`](@ref) visualizes discrete transmission events (e.g., disease spread, information diffusion):
+[`transmission_timeline`](@ref) visualizes discrete transmission events (e.g., disease spread, information diffusion):
 
 ```julia
 transmissions = [
@@ -300,7 +300,7 @@ transmissions = [
     (2, 4, 15.0),
 ]
 
-transmissionTimeline(dnet, transmissions; width=60)
+transmission_timeline(dnet, transmissions; width=60)
 ```
 
 Each transmission is shown as a `*` at its time position on the timeline.

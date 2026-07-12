@@ -244,6 +244,7 @@ export_gif(layout, "small.gif"; config=config)
 
 All export configurations subtype [`ExportConfig`](@ref):
 
+<!-- skip-check -->
 ```julia
 abstract type ExportConfig end
 

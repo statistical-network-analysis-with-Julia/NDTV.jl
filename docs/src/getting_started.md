@@ -8,13 +8,15 @@ Install NDTV.jl from GitHub:
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/Statistical-network-analysis-with-Julia/NDTV.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/Network.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NDTV.jl")
 ```
 
 NDTV.jl depends on NetworkDynamic.jl for dynamic network data structures. Install it as well:
 
 ```julia
-Pkg.add(url="https://github.com/Statistical-network-analysis-with-Julia/NetworkDynamic.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl")
 ```
 
 ## Basic Workflow
@@ -249,7 +251,7 @@ transmissions = [
     (3, 5, 30.0),   # Vertex 3 transmits to 5 at t=30
 ]
 
-transmissionTimeline(dnet, transmissions)
+transmission_timeline(dnet, transmissions)
 ```
 
 Output:
@@ -374,7 +376,7 @@ transmissions = [
 
 # Show transmission timeline
 println("\n=== Transmission Events ===")
-transmissionTimeline(dnet, transmissions)
+transmission_timeline(dnet, transmissions)
 
 # Show proximity timeline for the index case
 println("\n=== Index Case (Vertex 1) Contacts ===")

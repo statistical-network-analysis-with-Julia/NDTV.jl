@@ -22,10 +22,20 @@ This package is a Julia port of the R `ndtv` package from the StatNet collection
 
 ## Installation
 
+Requires Julia 1.12+. NDTV.jl depends on the unregistered
+[Network.jl](https://github.com/statistical-network-analysis-with-Julia/Network.jl) and [NetworkDynamic.jl](https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl) packages, which must be added first (in this order):
+
 ```julia
 using Pkg
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/Network.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl")
 Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NDTV.jl")
 ```
+
+For development, you can instead clone all ecosystem repositories side by
+side (the monorepo layout) and start Julia with the root workspace project
+(`julia --project=.` in the clone root): the `[sources]` path dependencies
+then wire the packages together with no ordered installs needed.
 
 ## Features
 
@@ -34,6 +44,10 @@ Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NDTV.jl"
 - **Filmstrip**: Multiple snapshots side-by-side
 - **Layout algorithms**: Fruchterman-Reingold, circular, random
 - **Export**: HTML, video, and GIF output (with external tools)
+
+Public functions use snake_case names (the Julia convention); R ndtv-style
+camelCase aliases are kept where the R name is the migration target
+(e.g. `transmission_timeline` / `transmissionTimeline`).
 
 ## Quick Start
 
@@ -168,7 +182,7 @@ proximity_timeline(dnet, vertex; width=60)
 ```julia
 # For epidemic/diffusion visualization
 transmissions = [(from, to, time), ...]
-transmissionTimeline(dnet, transmissions)
+transmission_timeline(dnet, transmissions)   # R-style alias: transmissionTimeline
 ```
 
 ### Timeline Data
@@ -261,7 +275,7 @@ transmissions = [
     (2, 4, 15.0),  # Person 2 infects 4 at t=15
 ]
 
-transmissionTimeline(dnet, transmissions)
+transmission_timeline(dnet, transmissions)
 ```
 
 ## Documentation
