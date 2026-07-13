@@ -16,7 +16,7 @@ module NDTV
 using Dates
 using Graphs
 using LinearAlgebra
-using Network
+using Networks
 using NetworkDynamic
 using Random
 
@@ -34,7 +34,10 @@ export filmstrip, slice_layout
 # Layout algorithms
 export DynamicLayout, InterpolatedLayout
 export compute_slice_layout, layout_sequence, compute_layout
-export FRLayout, KKLayout, CircleLayout, RandomLayout
+export FRLayout, MDSLayout, CircleLayout, RandomLayout
+# Deprecated alias: this layout is classical MDS of geodesic distances, not
+# the iterative Kamada-Kawai energy minimization the old name implied.
+export KKLayout
 export get_position
 
 # Export formats
@@ -193,14 +196,41 @@ struct RandomLayout
 end
 
 """
+    MDSLayout()
+
+**Classical multidimensional scaling (Torgerson scaling) of the geodesic
+distance matrix.** The squared-distance matrix is double-centred and the
+top two eigenvectors of the resulting Gram matrix give the coordinates, so
+Euclidean distances in the plane approximate graph distances. Deterministic
+and non-iterative (a single eigendecomposition, no random start, no `rng`
+dependence); unreachable pairs are assigned the maximum finite distance
+plus one.
+
+!!! note "This is not Kamada-Kawai"
+    This layout was previously called `KKLayout` and documented as
+    "Kamada-Kawai-style". That name was misleading: the true Kamada–Kawai
+    algorithm (Kamada & Kawai 1989) *iteratively minimizes a spring energy*
+    ``\\sum_{i<j} \\tfrac{1}{2} k_{ij}(\\|p_i - p_j\\| - d_{ij})^2`` by
+    Newton–Raphson on vertex positions. Nothing of the sort happens here —
+    classical MDS solves an eigenproblem in closed form and optimizes a
+    different (strain, not stress) criterion. The two give similar pictures
+    on small well-connected graphs but are different algorithms with
+    different fixed points. [`KKLayout`](@ref) remains as a deprecated
+    alias; use `MDSLayout`.
+"""
+struct MDSLayout end
+
+"""
     KKLayout()
 
-Kamada-Kawai-style layout: classical multidimensional scaling of the
-geodesic distance matrix, so Euclidean distances in the plane approximate
-graph distances. Deterministic (no iterations required); unreachable
-pairs are assigned the maximum finite distance plus one.
+!!! warning "Deprecated — renamed to [`MDSLayout`](@ref)"
+    This name implied the iterative Kamada–Kawai energy minimization, which
+    this package does not implement: the layout is, and always was,
+    classical MDS of the geodesic distance matrix. It has been renamed to
+    [`MDSLayout`](@ref) to say what it actually computes. `KKLayout` is an
+    alias for `MDSLayout` and will be removed in a future release.
 """
-struct KKLayout end
+const KKLayout = MDSLayout
 
 # The FR core, shared by fresh and anchored variants
 function _fr_iterate!(pos_x, pos_y, net, alg::FRLayout, iterations::Int, temp0::Float64)
@@ -298,7 +328,7 @@ function compute_layout(net::Network{T}, alg::RandomLayout;
     return positions
 end
 
-function compute_layout(net::Network{T}, ::KKLayout;
+function compute_layout(net::Network{T}, ::MDSLayout;
                         rng::Random.AbstractRNG=Random.default_rng()) where T
     n = Int(nv(net))
     n == 0 && return Dict{T, Tuple{Float64, Float64}}()
@@ -346,7 +376,7 @@ end
 
 Layout seeded from the previous frame's positions (matched by stable
 vertex ID) so consecutive frames move smoothly. Deterministic layouts
-(`CircleLayout`, `KKLayout`) recompute their fixed coordinates; for
+(`CircleLayout`, `MDSLayout`) recompute their fixed coordinates; for
 `RandomLayout` existing vertices keep their previous position.
 """
 function compute_layout_anchored(net::Network{T}, alg::FRLayout,
@@ -383,7 +413,7 @@ function compute_layout_anchored(net::Network{T}, alg::RandomLayout,
 end
 
 # Deterministic algorithms: anchoring is a no-op recomputation
-compute_layout_anchored(net::Network, alg::Union{CircleLayout, KKLayout},
+compute_layout_anchored(net::Network, alg::Union{CircleLayout, MDSLayout},
                         prev_positions;
                         rng::Random.AbstractRNG=Random.default_rng()) =
     compute_layout(net, alg; rng=rng)

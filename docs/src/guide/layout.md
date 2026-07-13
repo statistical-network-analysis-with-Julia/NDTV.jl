@@ -9,7 +9,7 @@ Layout algorithms compute vertex positions -- $(x, y)$ coordinates -- for networ
 | Algorithm | Type | Complexity | Best For |
 |-----------|------|------------|----------|
 | [`FRLayout`](@ref) | Force-directed | $O(n^2 \cdot \text{iters})$ | General networks |
-| [`KKLayout`](@ref) | Energy-based | $O(n^2 \cdot \text{iters})$ | Small networks |
+| [`MDSLayout`](@ref) | Classical MDS (eigendecomposition, non-iterative) | $O(n^3)$ | Small networks |
 | [`CircleLayout`](@ref) | Geometric | $O(n)$ | Fixed-structure comparisons |
 | [`RandomLayout`](@ref) | Random | $O(n)$ | Initial exploration |
 
@@ -129,51 +129,74 @@ For anchored layouts (used in animation sequences), the algorithm:
 - Runs half the iterations
 - This preserves layout stability while allowing gradual adaptation
 
-## Kamada-Kawai Layout
+## MDS Layout (classical scaling of geodesic distances)
 
-The Kamada-Kawai (KK) algorithm minimizes an energy function based on graph-theoretic distances. It tries to make the Euclidean distance between any two vertices proportional to their shortest-path distance in the graph.
+[`MDSLayout`](@ref) places vertices by **classical multidimensional scaling
+(Torgerson scaling)** of the graph's geodesic distance matrix, so that
+Euclidean distances in the plane approximate shortest-path distances.
+
+!!! warning "This is not Kamada-Kawai"
+    This layout used to be called `KKLayout` and was documented here as
+    minimizing the Kamada–Kawai spring energy. It never did. The true
+    Kamada–Kawai algorithm iteratively minimizes
+
+    ```math
+    E = \sum_{i<j} k_{ij} \left( \|p_i - p_j\| - d_{ij} \right)^2,
+    \qquad k_{ij} = 1/d_{ij}^2
+    ```
+
+    by Newton–Raphson on the vertex positions. What this package implements
+    is a closed-form eigendecomposition that optimizes a *different*
+    criterion (strain, not stress). The pictures often look similar on small
+    well-connected graphs, but they are different algorithms. The name was
+    changed so that it no longer implies an algorithm the code does not
+    implement. `KKLayout` remains as a deprecated alias.
+
+    True Kamada–Kawai energy minimization is **not implemented** in NDTV.jl.
 
 ### Algorithm
 
-KK minimizes the stress energy:
+Given the geodesic distance matrix $D$ (unreachable pairs capped at the
+largest finite distance plus one), classical MDS forms the squared-distance
+matrix, double-centres it into a Gram matrix
 
 ```math
-E = \sum_{i<j} k_{ij} \left( \|p_i - p_j\| - d_{ij} \right)^2
+B = -\tfrac{1}{2} J D^{(2)} J, \qquad J = I - \tfrac{1}{n} \mathbf{1}\mathbf{1}'
 ```
 
-where:
-- $d_{ij}$ is the graph-theoretic distance (shortest path length) between vertices $i$ and $j$
-- $k_{ij} = 1/d_{ij}^2$ is the spring constant (closer vertices are more strongly constrained)
-- $\|p_i - p_j\|$ is the Euclidean distance between vertex positions
+and takes the two leading eigenvectors of $B$, scaled by the square roots of
+their eigenvalues, as the coordinates. This is a single eigendecomposition:
+there is no iteration, no convergence criterion, and no random start.
 
 ### Usage
 
 ```julia
-kk = KKLayout()
+mds = MDSLayout()
 
-layout = compute_slice_layout(dnet, 50.0; algorithm=kk)
+layout = compute_slice_layout(dnet, 50.0; algorithm=mds)
 ```
 
 ### Parameters
 
-`KKLayout` takes no parameters: the implementation solves the layout
-directly via classical multidimensional scaling on the geodesic distance
-matrix, so it is deterministic and needs no iteration or convergence
-settings.
+`MDSLayout` takes no parameters. The layout is solved directly, so it is
+fully deterministic — it ignores any `rng` you pass — and needs no iteration
+or convergence settings.
 
-### When to Use KK
+### When to Use MDS
 
-KK produces high-quality layouts that respect graph distances, but it is more expensive than FR for large networks. Use KK when:
+MDS produces layouts that respect graph distances, but it is more expensive
+than FR for large networks (it is $O(n^3)$ in the eigendecomposition, on top
+of all-pairs shortest paths). Use it when:
 
 - The network has fewer than ~50 vertices
 - You want distances in the layout to reflect graph-theoretic distances
 - The network has a clear hierarchical or tree-like structure
-- You need reproducible, stable layouts
+- You need reproducible, stable layouts (it is deterministic)
 
 ```julia
 # Small network with clear structure
-kk = KKLayout()
-layout = render_animation(dnet; algorithm=kk, n_frames=50)
+mds = MDSLayout()
+layout = render_animation(dnet; algorithm=mds, n_frames=50)
 ```
 
 ## Circle Layout
@@ -269,7 +292,7 @@ layout = compute_slice_layout(dnet, 50.0; algorithm=random)
 ```text
 Is your network small (<50 vertices)?
 ├── Yes: Do you care about graph distances?
-│   ├── Yes → KKLayout
+│   ├── Yes → MDSLayout
 │   └── No → FRLayout
 └── No: Is speed critical?
     ├── Yes → CircleLayout or RandomLayout
@@ -283,7 +306,7 @@ Consider a network with community structure:
 | Algorithm | Reveals Structure? | Stable? | Speed |
 |-----------|-------------------|---------|-------|
 | FR | Yes -- communities cluster | With anchoring | Medium |
-| KK | Yes -- distances are meaningful | High | Slow |
+| MDS | Yes -- distances are meaningful | Perfect (deterministic) | Slow |
 | Circle | No -- all vertices equidistant | Perfect | Fast |
 | Random | No -- positions are meaningless | None | Fast |
 
@@ -369,7 +392,7 @@ height = ymax - ymin
 You can use `compute_layout` directly on a static `Network`:
 
 ```julia
-using Network
+using Networks
 
 # Create a static network
 net = network(5; directed=false)

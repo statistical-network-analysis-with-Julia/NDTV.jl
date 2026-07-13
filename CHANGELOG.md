@@ -7,9 +7,9 @@ package adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [0.2.0] - Unreleased
 
 Release driven by the 2026-07 expert-panel review: stable vertex identity
-across animation frames, reproducible layouts, a real Kamada–Kawai/MDS
-algorithm, and export backends that actually render (SVG frames, ffmpeg
-movies, interactive HTML).
+across animation frames, reproducible layouts, a real classical-MDS layout
+algorithm (honestly named), and export backends that actually render (SVG
+frames, ffmpeg movies, interactive HTML).
 
 ### Breaking
 
@@ -19,10 +19,21 @@ movies, interactive HTML).
   vertices placed as isolates) instead of densely renumbered active-only
   vertices. This fixes vertex-identity drift between frames. *Migration:*
   index positions by original vertex ID, not `1:k`.
-- **`KKLayout()` is now fieldless** — it implements classical MDS over the
-  geodesic-distance matrix (deterministic), so the old
-  `iterations`/`epsilon` keywords are gone. *Migration:* drop those
-  keywords.
+- **`KKLayout` renamed to `MDSLayout`; `KKLayout` is now a deprecated
+  alias.** The algorithm is classical multidimensional scaling (Torgerson
+  scaling) of the geodesic-distance matrix: double-centre the squared
+  distances, take the top two eigenvectors. It is *not* Kamada–Kawai, which
+  iteratively minimizes a spring energy by Newton–Raphson — no such
+  iteration exists in this package, and none was ever implemented. The name
+  implied an algorithm the code does not run, so it was changed to say what
+  it actually computes; the docs no longer print the KK stress-energy
+  formula as if it were being minimized. True Kamada–Kawai remains
+  unimplemented. *Migration:* use `MDSLayout()`; `KKLayout()` still works
+  (`const KKLayout = MDSLayout`) but will be removed in a future release.
+- **`MDSLayout()` is fieldless** — being a closed-form eigenproblem it needs
+  no iteration or convergence settings, so the old `iterations`/`epsilon`
+  keywords are gone, and it ignores any `rng` passed to `compute_layout`.
+  *Migration:* drop those keywords.
 - **`DynamicLayout` gained a `Time` type parameter and
   `frame_edges`/`frame_active` fields;** `times` is `Vector{Time}` rather
   than `Vector{Float64}`. *Migration:* construct via the keyword

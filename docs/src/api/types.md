@@ -13,7 +13,13 @@ InterpolatedLayout
 
 ```@docs
 FRLayout
-KKLayout
+MDSLayout
 CircleLayout
 RandomLayout
+```
+
+### Deprecated Aliases
+
+```@docs
+KKLayout
 ```

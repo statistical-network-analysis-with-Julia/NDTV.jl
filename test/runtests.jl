@@ -1,6 +1,6 @@
 using NDTV
 using NetworkDynamic
-using Network
+using Networks
 using Dates
 using Random
 using Test
@@ -28,18 +28,28 @@ end
         add_edge!(net, 4, 5)
 
         rng = Random.Xoshiro(1)
-        for alg in (FRLayout(), CircleLayout(), RandomLayout(), KKLayout())
+        for alg in (FRLayout(), CircleLayout(), RandomLayout(), MDSLayout())
             pos = compute_layout(net, alg; rng=rng)
             @test length(pos) == 6
             @test all(haskey(pos, v) for v in 1:6)
             @test all(all(isfinite, p) for p in values(pos))
         end
 
-        # KK: connected vertices closer than the far component
-        kk = compute_layout(net, KKLayout())
-        d12 = hypot(kk[1][1] - kk[2][1], kk[1][2] - kk[2][2])
-        d14 = hypot(kk[1][1] - kk[4][1], kk[1][2] - kk[4][2])
+        # MDS: connected vertices closer than the far component
+        mds = compute_layout(net, MDSLayout())
+        d12 = hypot(mds[1][1] - mds[2][1], mds[1][2] - mds[2][2])
+        d14 = hypot(mds[1][1] - mds[4][1], mds[1][2] - mds[4][2])
         @test d12 < d14
+
+        # Classical MDS is a closed-form eigenproblem, not an iterative
+        # energy minimization: it is deterministic and ignores the rng.
+        @test compute_layout(net, MDSLayout(); rng=Random.Xoshiro(3)) ==
+              compute_layout(net, MDSLayout(); rng=Random.Xoshiro(4))
+
+        # `KKLayout` is a deprecated alias kept for compatibility; the name
+        # implied Kamada-Kawai energy minimization, which is not what runs.
+        @test KKLayout === MDSLayout
+        @test compute_layout(net, KKLayout()) == mds
 
         # Reproducible with the same rng seed
         p1 = compute_layout(net, FRLayout(); rng=Random.Xoshiro(9))
@@ -83,7 +93,7 @@ end
 
         # Non-FR algorithms are anchored without MethodError (this threw
         # before)
-        for alg in (CircleLayout(), RandomLayout(), KKLayout())
+        for alg in (CircleLayout(), RandomLayout(), MDSLayout())
             l = layout_sequence(dnet, [2.0, 7.0]; algorithm=alg, anchor=true, rng=rng)
             @test length(l) == 2
         end

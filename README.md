@@ -23,11 +23,11 @@ This package is a Julia port of the R `ndtv` package from the StatNet collection
 ## Installation
 
 Requires Julia 1.12+. NDTV.jl depends on the unregistered
-[Network.jl](https://github.com/statistical-network-analysis-with-Julia/Network.jl) and [NetworkDynamic.jl](https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl) packages, which must be added first (in this order):
+[Networks.jl](https://github.com/statistical-network-analysis-with-Julia/Networks.jl) and [NetworkDynamic.jl](https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl) packages, which must be added first (in this order):
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/Network.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/Networks.jl")
 Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl")
 Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NDTV.jl")
 ```
@@ -100,8 +100,10 @@ CircleLayout(; radius=1.0, start_angle=0.0)
 # Random layout
 RandomLayout(; xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0)
 
-# Kamada-Kawai
-KKLayout()   # classical MDS on geodesic distances (deterministic)
+# Classical MDS of geodesic distances (deterministic, non-iterative).
+# This is NOT Kamada-Kawai: no spring-energy minimization is performed.
+# `KKLayout` is a deprecated alias for `MDSLayout`.
+MDSLayout()
 ```
 
 ### Single Snapshot Layout

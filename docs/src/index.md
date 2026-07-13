@@ -29,7 +29,7 @@ NDTV.jl computes layouts for each time point and provides smooth transitions bet
 |---------|-------------|
 | **DynamicLayout** | Vertex positions across multiple time points |
 | **InterpolatedLayout** | Smooth position interpolation between time points |
-| **Layout Algorithm** | Method for positioning vertices (FR, KK, circle, random) |
+| **Layout Algorithm** | Method for positioning vertices (FR, MDS, circle, random) |
 | **Timeline Plot** | ASCII visualization of vertex and edge activity spells |
 | **Filmstrip** | Multiple network snapshots side by side |
 | **Animation** | Continuous layout transitions with export support |
@@ -47,7 +47,7 @@ NDTV.jl is designed for:
 ## Features
 
 - **Animation rendering**: Compute smooth layout transitions across time
-- **Layout algorithms**: Fruchterman-Reingold, Kamada-Kawai, circular, and random layouts
+- **Layout algorithms**: Fruchterman-Reingold, classical MDS of geodesic distances, circular, and random layouts
 - **Timeline visualization**: ASCII timeline plots showing vertex and edge activity
 - **Proximity timeline**: Ego-centric activity views
 - **Transmission timeline**: Visualize diffusion and contagion events
@@ -58,7 +58,7 @@ NDTV.jl is designed for:
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/Network.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/Networks.jl")
 Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl")
 Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NDTV.jl")
 ```
@@ -158,6 +158,14 @@ Between computed layout frames, positions are interpolated:
 
 2. Fruchterman, T.M.J., Reingold, E.M. (1991). Graph drawing by force-directed placement. *Software: Practice and Experience*, 21(11), 1129-1164.
 
-3. Kamada, T., Kawai, S. (1989). An algorithm for drawing general undirected graphs. *Information Processing Letters*, 31(1), 7-15.
+3. Torgerson, W.S. (1952). Multidimensional scaling: I. Theory and method. *Psychometrika*, 17(4), 401-419. — the classical (strain) MDS that [`MDSLayout`](@ref) implements.
+
+   Note: Kamada, T., Kawai, S. (1989), "An algorithm for drawing general undirected graphs" (*Information Processing Letters*, 31(1), 7-15), is cited here only for contrast. Its iterative spring-energy minimization is **not** implemented in NDTV.jl; the layout formerly named `KKLayout` is classical MDS.
 
 4. Moody, J., McFarland, D., Bender-deMoll, S. (2005). Dynamic network visualization. *American Journal of Sociology*, 110(4), 1206-1241.
+
+## Module
+
+```@docs
+NDTV
+```

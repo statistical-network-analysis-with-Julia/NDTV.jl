@@ -8,6 +8,7 @@ This page documents the functions for exporting dynamic network animations to va
 export_html
 export_movie
 export_gif
+export_frames
 ```
 
 ## Configuration Types

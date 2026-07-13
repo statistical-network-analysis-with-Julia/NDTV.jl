@@ -367,7 +367,7 @@ For large networks (>100 vertices), start with fewer frames and increase as need
 ### Layout Algorithm Choice
 
 - **FRLayout**: $O(n^2)$ per iteration due to pairwise repulsion. Good for networks up to ~500 vertices.
-- **KKLayout**: More expensive per iteration but may converge faster. Best for small networks.
+- **MDSLayout**: Non-iterative (one eigendecomposition of the geodesic distance matrix), but $O(n^3)$. Best for small networks. Deterministic, so frames are perfectly stable without anchoring.
 - **CircleLayout**: $O(n)$ -- fast but ignores network structure.
 - **RandomLayout**: $O(n)$ -- fastest, but no structural information.
 

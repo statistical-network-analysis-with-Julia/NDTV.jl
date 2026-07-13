@@ -8,7 +8,7 @@ Install NDTV.jl from GitHub:
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/Network.jl")
+Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/Networks.jl")
 Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NetworkDynamic.jl")
 Pkg.add(url="https://github.com/statistical-network-analysis-with-Julia/NDTV.jl")
 ```
@@ -33,7 +33,7 @@ The typical NDTV.jl workflow consists of four steps:
 Dynamic networks are created using NetworkDynamic.jl. Vertices and edges have activity spells that define when they are present:
 
 ```julia
-using Network   # for nv, ne on extracted snapshots
+using Networks   # for nv, ne on extracted snapshots
 using NetworkDynamic
 using NDTV
 
@@ -147,8 +147,10 @@ NDTV.jl provides four layout algorithms:
 # Fruchterman-Reingold: Force-directed (best for most networks)
 fr = FRLayout(iterations=100, cooling=0.95, k=1.0)
 
-# Kamada-Kawai: classical MDS on geodesic distances (deterministic, no parameters)
-kk = KKLayout()
+# Classical MDS of geodesic distances (deterministic, no parameters).
+# NOT Kamada-Kawai: no iterative energy minimization is performed.
+# (`KKLayout` is a deprecated alias for this.)
+mds = MDSLayout()
 
 # Circle: Uniform circular placement
 circle = CircleLayout(radius=1.0, start_angle=0.0)
@@ -160,7 +162,7 @@ random = RandomLayout(xmin=0.0, xmax=1.0, ymin=0.0, ymax=1.0)
 | Algorithm | Best For | Stability | Speed |
 |-----------|----------|-----------|-------|
 | `FRLayout` | General networks | High (with anchoring) | Medium |
-| `KKLayout` | Small networks (<50 vertices) | High | Slow |
+| `MDSLayout` | Small networks (<50 vertices) | Perfect (deterministic) | Slow |
 | `CircleLayout` | Fixed-structure comparisons | Perfect | Fast |
 | `RandomLayout` | Initial exploration | None | Fast |
 
