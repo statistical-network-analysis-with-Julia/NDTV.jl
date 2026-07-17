@@ -293,6 +293,21 @@ For more detailed documentation, see:
 
 2. Bender-deMoll, S., & McFarland, D.A. (2006). The Art and Science of Dynamic Network Visualization. *Journal of Social Structure*, 7(2), 1-38.
 
+## Citation
+
+If you use NDTV.jl in your work, please cite it using the entry in
+[`CITATION.bib`](CITATION.bib):
+
+```biblatex
+@misc{SNWJNDTVJL,
+  author = {{Statistical Network Analysis with Julia}},
+  title = {NDTV.jl: Network Dynamic Temporal Visualization for Julia},
+  year = {2026},
+  url = {https://github.com/statistical-network-analysis-with-Julia/NDTV.jl},
+  note = {Homepage: https://statistical-network-analysis-with-Julia.github.io/NDTV.jl; GitHub: https://github.com/statistical-network-analysis-with-Julia}
+}
+```
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.

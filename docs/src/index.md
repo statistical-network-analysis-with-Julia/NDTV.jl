@@ -164,6 +164,22 @@ Between computed layout frames, positions are interpolated:
 
 4. Moody, J., McFarland, D., Bender-deMoll, S. (2005). Dynamic network visualization. *American Journal of Sociology*, 110(4), 1206-1241.
 
+
+## Citation
+
+If you use NDTV.jl in your work, please cite it using the entry in
+[`CITATION.bib`](https://github.com/statistical-network-analysis-with-Julia/NDTV.jl/blob/main/CITATION.bib):
+
+```biblatex
+@misc{SNWJNDTVJL,
+  author = {{Statistical Network Analysis with Julia}},
+  title = {NDTV.jl: Network Dynamic Temporal Visualization for Julia},
+  year = {2026},
+  url = {https://github.com/statistical-network-analysis-with-Julia/NDTV.jl},
+  note = {Homepage: https://statistical-network-analysis-with-Julia.github.io/NDTV.jl; GitHub: https://github.com/statistical-network-analysis-with-Julia}
+}
+```
+
 ## Module
 
 ```@docs
