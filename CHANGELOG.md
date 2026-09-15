@@ -74,6 +74,8 @@ frames, ffmpeg movies, interactive HTML).
 
 ### Changed
 
+- Documentation uses the default Documenter themes, with a new package-specific
+  SVG icon and browser favicon in the official Julia logo colors.
 - Anchored Fruchterman–Reingold refines from the previous frame at lower
   temperature and half the iterations, giving temporally smoother layouts.
 - `filmstrip` frames report active vertices/edges derived from the layout
