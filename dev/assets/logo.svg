@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">NDTV.jl</title>
+  <desc id="desc">A network forming a play symbol inside a film frame: dynamic network animation.</desc>
+  <rect x="26" y="42" width="204" height="172" rx="20" fill="none" stroke="#4063D8" stroke-width="12"/>
+  <path d="M30 74H226M30 182H226" fill="none" stroke="#4063D8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M64 44V72M104 44V72M152 44V72M192 44V72M64 184V212M104 184V212M152 184V212M192 184V212" fill="none" stroke="#4063D8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M99 100 158 128 99 156Z" fill="none" stroke="#9558B2" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="99" cy="100" r="14" fill="#389826"/>
+  <circle cx="158" cy="128" r="14" fill="#CB3C33"/>
+  <circle cx="99" cy="156" r="14" fill="#9558B2"/>
+</svg>
